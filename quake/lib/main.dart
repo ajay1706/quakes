@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+
 
 Map _data;
 List _features;
@@ -49,9 +51,17 @@ body: new Center(
 
         if(position.isOdd) return new Divider();
         final index = position ~/ 2 ;
+        var format = new DateFormat.yMMMMd("en_US").add_jm();
+        var _date = format.format(DateTime.fromMicrosecondsSinceEpoch(_features[index]['properties']['time']*1000,
+        isUtc: true
+        ));
+
+
+
+
 
         return new ListTile(
-          title:new Text("Magnitude: ${_features[index]['properties']['mag'] }",
+          title:new Text("At: $_date ",
 
             style: new TextStyle(
               fontSize: 20.0,
@@ -94,8 +104,11 @@ body: new Center(
 
 
           ),
+onTap: () { _showAlertMessage(context,"${_features[index]["properties"]['title']}");
 
+},
         );
+
 
 
       }
@@ -116,7 +129,32 @@ body: new Center(
 
 
 
-}
+
+  void _showAlertMessage(BuildContext context, String message) {
+
+var alert = new AlertDialog(
+
+  title: Text("Quakes"),
+  content: new Text(message),
+actions: <Widget>[
+  new FlatButton(onPressed:(){Navigator.pop(context);},
+    child: new Text("Ok"),
+
+
+  )
+
+
+],
+
+
+
+);
+showDialog(context: context,child: alert);
+
+  }}
+
+
+
 
 
 Future<Map> getQuakes() async{
