@@ -1,3 +1,3 @@
 # quakes
 
-<img src="Screenshot%202019-07-12%20at%2010.28.00%20PM.png" alt="drawing" width="200"/>
+<img src="Screenshot 2019-07-13 at 2.49.28 AM.png" alt="drawing" width="200"/>
